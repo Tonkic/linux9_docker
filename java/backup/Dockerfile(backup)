@@ -1,0 +1,12 @@
+FROM openjdk:8-jdk-alpine
+
+RUN apk --no-cache add mysql-client
+
+WORKDIR /app
+
+COPY Main.java .
+COPY mysql-connector-java-8.0.33.jar .
+
+RUN javac -cp mysql-connector-java-8.0.33.jar Main.java
+
+CMD ["java", "-cp", ".:/app/mysql-connector-java-8.0.33.jar", "Main"]

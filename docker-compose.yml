@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    ports:
+      - "3307:3306"
+
+  php:
+    build:
+      context: ./php
+    ports:
+      - "83:80"
+    depends_on:
+      - mysql
+
+  java:
+    build:
+      context: ./java
+    ports:
+      - "81:8080"
+    depends_on:
+      - mysql
+
+  python:
+    build:
+      context: ./python
+    ports:
+      - "82:8000"
+    depends_on:
+      - mysql
+
+
